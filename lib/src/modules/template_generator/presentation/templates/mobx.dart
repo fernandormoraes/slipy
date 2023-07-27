@@ -6,17 +6,8 @@ mobx: |
   
   part '$fileName.g.dart';
   
-  class $fileName|pascalcase = _$fileName|pascalcaseBase with _$$fileName|pascalcase;
-  abstract class _$fileName|pascalcaseBase with Store {
-  
-    @observable
-    int value = 0;
-  
-    @action
-    void increment() {
-      value++;
-    } 
-  }
+  class $fileName|pascalcase = $fileName|pascalcaseBase with _$$fileName|pascalcase;
+  abstract class $fileName|pascalcaseBase with Store {}
 mobx_test: |
   import 'package:flutter_test/flutter_test.dart';
   $arg2
@@ -26,12 +17,6 @@ mobx_test: |
   
     setUpAll(() {
       store = $arg1();
-    });
-  
-    test('increment count', () async {
-      expect(store.value, equals(0));
-      store.increment();
-      expect(store.value, equals(1));
     });
   }
 ''';

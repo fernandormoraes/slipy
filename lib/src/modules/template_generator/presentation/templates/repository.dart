@@ -10,7 +10,7 @@ i_repository: |
   
   }
 impl_repository: |
-  import '$fileName_interface.dart';
+  import '$fileName|snakecase_interface.dart';
   
   class $fileName|pascalcase implements I$fileName|pascalcase {
   

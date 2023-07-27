@@ -28,7 +28,8 @@ enum ShellEnum {
   final List<String> _windowsCommands;
   const ShellEnum(this._commands, this._windowsCommands);
 
-  List<String> get commands => Platform.isWindows ? _windowsCommands : _commands;
+  List<String> get commands =>
+      Platform.isWindows ? _windowsCommands : _commands;
 }
 
 class Script {
@@ -49,9 +50,12 @@ class Script {
     List<Step>? steps,
   }) {
     assert(run != null || steps != null, 'use [command] or [steps] field.');
-    assert(!(run != null && steps != null), 'Don\'t use command and steps together.');
+    assert(!(run != null && steps != null),
+        'Don\'t use command and steps together.');
 
-    this.steps = run != null ? [Step(run: run, shell: shell, environment: environment)] : steps!;
+    this.steps = run != null
+        ? [Step(run: run, shell: shell, environment: environment)]
+        : steps!;
   }
 
   Script copyWith({

@@ -9,9 +9,9 @@ class TemplateFile {
   late final File file;
   late final File fileTest;
   late final String fileName;
-  late final fileNameWithUppeCase;
+  late final String fileNameWithUppeCase;
   final String packageName;
-  late final import;
+  late final String import;
 
   TemplateFile._(String path, String type, this.packageName) {
     file = File('lib/app/$path$type.dart');
@@ -23,10 +23,12 @@ class TemplateFile {
 
   static Future<TemplateFile> getInstance(String path, String? type) async {
     final pubspec = Modular.get<YamlService>();
-    return TemplateFile._(path, type == null ? '' : '_$type', (pubspec.getValue(['name']))?.value);
+    return TemplateFile._(path, type == null ? '' : '_$type',
+        (pubspec.getValue(['name']))?.value);
   }
 
-  Future<bool> checkDependencyIsExist(String dependency, [bool isDev = false]) async {
+  Future<bool> checkDependencyIsExist(String dependency,
+      [bool isDev = false]) async {
     try {
       final dependenciesLine = isDev ? 'dev_dependencies' : 'dependencies';
       final pubspec = Modular.get<YamlService>();

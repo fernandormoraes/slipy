@@ -12,11 +12,14 @@ class PipelineModule extends Module {
   @override
   List<Bind> get binds => [
         //domain
-        Bind.singleton<LoadSlidyPipeline>((i) => LoadSlidyPipelineImpl(i()), export: true),
-        Bind.singleton<ResolveVariables>((i) => ResolveVariablesImpl(), export: true),
+        Bind.singleton<LoadSlidyPipeline>((i) => LoadSlidyPipelineImpl(i()),
+            export: true),
+        Bind.singleton<ResolveVariables>((i) => ResolveVariablesImpl(),
+            export: true),
         Bind.singleton<ExecuteStep>((i) => ExecuteStepImpl(), export: true),
         Bind.singleton<ConditionEval>((i) => ConditionEvalImpl(), export: true),
         //infra
-        Bind.singleton<YamlReaderService>((i) => YamlReaderServiceImpl(), export: true),
+        Bind.singleton<YamlReaderService>((i) => YamlReaderServiceImpl(),
+            export: true),
       ];
 }

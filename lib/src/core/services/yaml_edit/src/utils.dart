@@ -44,7 +44,7 @@ bool isDangerousString(String string) {
 ///
 /// A valid scalar is a number, String, boolean, or null.
 void assertValidScalar(Object value) {
-  if (value is num || value is String || value is bool || value == null) {
+  if (value is num || value is String || value is bool) {
     return;
   }
 

@@ -16,7 +16,8 @@ class UninstallCommand extends CommandBase {
   final description = 'Remove a package';
 
   UninstallCommand() {
-    argParser.addFlag('dev', negatable: false, help: 'Remove a package in a dev dependency');
+    argParser.addFlag('dev',
+        negatable: false, help: 'Remove a package in a dev dependency');
   }
 
   @override

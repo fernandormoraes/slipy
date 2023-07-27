@@ -60,7 +60,8 @@ class RunCommand extends CommandBase {
     result.fold(output.error, output.success);
   }
 
-  TaskEither<SlidyError, String> executeScript(String command, SlidyPipelineV1 pipeline) {
+  TaskEither<SlidyError, String> executeScript(
+      String command, SlidyPipelineV1 pipeline) {
     return TaskEither(() async {
       var script = pipeline.scripts[command];
       if (script == null) {
@@ -68,14 +69,19 @@ class RunCommand extends CommandBase {
       }
 
       var resolvedScript = script.copyWith(
-        name: resolveVariables(script.name, pipeline).getOrElse((l) => script.name),
-        description: resolveVariables(script.description, pipeline).getOrElse((l) => script.description),
-        workingDirectory: resolveVariables(script.workingDirectory, pipeline).getOrElse((l) => script.workingDirectory),
+        name: resolveVariables(script.name, pipeline)
+            .getOrElse((l) => script.name),
+        description: resolveVariables(script.description, pipeline)
+            .getOrElse((l) => script.description),
+        workingDirectory: resolveVariables(script.workingDirectory, pipeline)
+            .getOrElse((l) => script.workingDirectory),
       );
 
       final steps = resolvedScript.steps.map((step) {
-        final stepDir = resolveVariables(step.workingDirectory, pipeline).getOrElse((l) => script.workingDirectory);
-        final workingDirectory = resolveWorkingDirectory(resolvedScript.workingDirectory, stepDir);
+        final stepDir = resolveVariables(step.workingDirectory, pipeline)
+            .getOrElse((l) => script.workingDirectory);
+        final workingDirectory =
+            resolveWorkingDirectory(resolvedScript.workingDirectory, stepDir);
         return step.copyWith(
           workingDirectory: workingDirectory,
           environment: {
@@ -101,10 +107,18 @@ class RunCommand extends CommandBase {
           },
         );
         step = step.copyWith(
-          name: step.name == null ? null : resolveVariables(step.name!, pipelineVarUpdate).getOrElse((l) => step.name!),
-          description: resolveVariables(step.description, pipelineVarUpdate).getOrElse((l) => step.description),
-          run: resolveVariables(step.run, pipelineVarUpdate).getOrElse((l) => step.run),
-          condition: step.condition == null ? null : resolveVariables(step.condition!, pipelineVarUpdate).getOrElse((l) => step.condition!),
+          name: step.name == null
+              ? null
+              : resolveVariables(step.name!, pipelineVarUpdate)
+                  .getOrElse((l) => step.name!),
+          description: resolveVariables(step.description, pipelineVarUpdate)
+              .getOrElse((l) => step.description),
+          run: resolveVariables(step.run, pipelineVarUpdate)
+              .getOrElse((l) => step.run),
+          condition: step.condition == null
+              ? null
+              : resolveVariables(step.condition!, pipelineVarUpdate)
+                  .getOrElse((l) => step.condition!),
         );
 
         if (!conditionEval.call(step.condition)) {

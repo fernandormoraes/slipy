@@ -20,6 +20,6 @@ class PubServiceImpl implements PubService {
   @override
   Future<List<String>> searchPackage(String packageName) async {
     final packages = await client.search(packageName);
-    return packages.packages.map((e) => '${e.package}').toList();
+    return packages.packages.map((e) => e.package).toList();
   }
 }

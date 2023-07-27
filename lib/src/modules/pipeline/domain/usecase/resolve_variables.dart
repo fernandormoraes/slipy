@@ -14,13 +14,16 @@ class ResolveVariablesImpl implements ResolveVariables {
 
   @override
   Either<SlidyError, String> call(String text, SlidyPipelineV1 pipeline) {
-    text = resolveVariable(text, pipeline.localVariables, r'(?<var>\$\{Local\.var\.(?<key>\w+)\})');
-    text = resolveVariable(text, pipeline.systemVariables, r'(?<var>\$\{System\.env\.(?<key>\w+)\})');
+    text = resolveVariable(text, pipeline.localVariables,
+        r'(?<var>\$\{Local\.var\.(?<key>\w+)\})');
+    text = resolveVariable(text, pipeline.systemVariables,
+        r'(?<var>\$\{System\.env\.(?<key>\w+)\})');
     text = resolveSystemVariables(text);
     return Right(text);
   }
 
-  String resolveVariable(String text, Map<String, String> variables, String regexText) {
+  String resolveVariable(
+      String text, Map<String, String> variables, String regexText) {
     final regex = RegExp(regexText);
     final matches = regex.allMatches(text);
     for (var match in matches) {

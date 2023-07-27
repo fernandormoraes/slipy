@@ -21,7 +21,8 @@ class MainModule extends Module {
   @override
   List<Bind> get binds => [
         //services
-        Bind.singleton<YamlService>((i) => YamlServiceImpl(yaml: File('pubspec.yaml'))),
+        Bind.singleton<YamlService>(
+            (i) => YamlServiceImpl(yaml: File('pubspec.yaml'))),
         //external
         Bind.singleton<Client>((i) => Client()),
       ];

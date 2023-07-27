@@ -25,10 +25,12 @@ class InstallImpl implements Install {
     return TaskEither(() async {
       if (package.name.contains('@')) {
         final elements = package.name.split('@');
-        return Right(package.copyWith(name: elements[0].trim(), version: elements[1].trim()));
+        return Right(package.copyWith(
+            name: elements[0].trim(), version: elements[1].trim()));
       } else {
         final result = await repository.getVersions(package.name).run();
-        return result.map((allVersion) => package.copyWith(version: '^${allVersion.last}'));
+        return result.map(
+            (allVersion) => package.copyWith(version: '^${allVersion.last}'));
       }
     });
   }

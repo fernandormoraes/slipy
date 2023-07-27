@@ -32,4 +32,4 @@ use_case_test: |
   }
 ''';
 
-final use_case = CustomFile(yaml: _useCaseTemplate);
+final useCase = CustomFile(yaml: _useCaseTemplate);

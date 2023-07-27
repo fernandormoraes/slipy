@@ -17,8 +17,10 @@ class GenerateRepositorySubCommand extends CommandBase {
   final description = 'Creates a Repository';
 
   GenerateRepositorySubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addFlag('interface', abbr: 'i', negatable: false, help: 'Create Repository Inteface');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('interface',
+        abbr: 'i', negatable: false, help: 'Create Repository Inteface');
     argParser.addOption('bind',
         abbr: 'b',
         allowed: [
@@ -29,7 +31,8 @@ class GenerateRepositorySubCommand extends CommandBase {
         defaultsTo: 'lazy-singleton',
         allowedHelp: {
           'singleton': 'Object persist while module exists',
-          'lazy-singleton': 'Object persist while module exists, but only after being called first for the fist time',
+          'lazy-singleton':
+              'Object persist while module exists, but only after being called first for the fist time',
           'factory': 'A new object is created each time it is called.',
         },
         help: 'Define type injection in parent module');
@@ -37,7 +40,8 @@ class GenerateRepositorySubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'repository');
+    final templateFile = await TemplateFile.getInstance(
+        argResults?.rest.single ?? '', 'repository');
     var result = await Modular.get<Create>().call(
       TemplateInfo(
         yaml: repositoryFile,
@@ -47,22 +51,37 @@ class GenerateRepositorySubCommand extends CommandBase {
     );
     execute(result);
     if (result.isRight()) {
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}Repository()', templateFile.import, templateFile.file.parent);
+      await utils.injectParentModule(
+          argResults!['bind'],
+          '${templateFile.fileNameWithUppeCase}Repository()',
+          templateFile.import,
+          templateFile.file.parent);
     }
 
     if (argResults!['interface']) {
-      print('${templateFile.file.parent.path}/${templateFile.fileName}_interface.dart');
+      print(
+          '${templateFile.file.parent.path}/${templateFile.fileName}_interface.dart');
       result = await Modular.get<Create>().call(TemplateInfo(
           yaml: repositoryFile,
-          destiny: File('${templateFile.file.parent.path}/${templateFile.fileName}_repository_interface.dart'),
+          destiny: File(
+              '${templateFile.file.parent.path}/${templateFile.fileName}_repository_interface.dart'),
           key: 'i_repository',
-          args: [templateFile.fileNameWithUppeCase + 'Repository', templateFile.import]));
+          args: [
+            '${templateFile.fileNameWithUppeCase}Repository',
+            templateFile.import
+          ]));
       execute(result);
     }
 
     if (!argResults!['notest']) {
-      result = await Modular.get<Create>()
-          .call(TemplateInfo(yaml: repositoryFile, destiny: templateFile.fileTest, key: 'test_repository', args: [templateFile.fileNameWithUppeCase + 'Repository', templateFile.import]));
+      result = await Modular.get<Create>().call(TemplateInfo(
+          yaml: repositoryFile,
+          destiny: templateFile.fileTest,
+          key: 'test_repository',
+          args: [
+            '${templateFile.fileNameWithUppeCase}Repository',
+            templateFile.import
+          ]));
       execute(result);
     }
   }
@@ -73,5 +92,5 @@ class GenerateRepositorySubCommand extends CommandBase {
 
 class GenerateRepositoryAbbrSubCommand extends GenerateRepositorySubCommand {
   @override
-  final name = 'r';
+  String get name => 'r';
 }

@@ -107,9 +107,9 @@ String _tryYamlEncodeFolded(String string, int indentation, String lineEnding) {
   final removedPortion = string.substring(trimmedString.length);
 
   if (removedPortion.contains('\n')) {
-    result = '>+\n' + ' ' * indentation;
+    result = '>+\n${' ' * indentation}';
   } else {
-    result = '>-\n' + ' ' * indentation;
+    result = '>-\n${' ' * indentation}';
   }
 
   /// Duplicating the newline for folded strings preserves it in YAML.
@@ -224,7 +224,7 @@ String yamlEncodeFlowString(YamlNode value) {
     final list = value.nodes;
 
     final safeValues = list.map(yamlEncodeFlowString);
-    return '[' + safeValues.join(', ') + ']';
+    return '[${safeValues.join(', ')}]';
   } else if (value is YamlMap) {
     final safeEntries = value.nodes.entries.map((entry) {
       final safeKey = yamlEncodeFlowString(entry.key);
@@ -232,7 +232,7 @@ String yamlEncodeFlowString(YamlNode value) {
       return '$safeKey: $safeValue';
     });
 
-    return '{' + safeEntries.join(', ') + '}';
+    return '{${safeEntries.join(', ')}}';
   }
 
   return _yamlEncodeFlowScalar(value);
@@ -253,7 +253,7 @@ String yamlEncodeBlockString(
   final newIndentation = indentation + additionalIndentation;
 
   if (value is YamlList) {
-    if (value.isEmpty) return ' ' * indentation + '[]';
+    if (value.isEmpty) return '${' ' * indentation}[]';
 
     Iterable<String> safeValues;
 
@@ -266,12 +266,12 @@ String yamlEncodeBlockString(
         valueString = valueString.substring(newIndentation);
       }
 
-      return ' ' * indentation + '- $valueString';
+      return '${' ' * indentation}- $valueString';
     });
 
     return safeValues.join(lineEnding);
   } else if (value is YamlMap) {
-    if (value.isEmpty) return ' ' * indentation + '{}';
+    if (value.isEmpty) return '${' ' * indentation}{}';
 
     return value.nodes.entries.map((entry) {
       final safeKey = yamlEncodeFlowString(entry.key);
@@ -282,10 +282,10 @@ String yamlEncodeBlockString(
       /// Empty collections are always encoded in flow-style, so new-line must
       /// be avoided
       if (isCollection(entry.value) && !isEmpty(entry.value)) {
-        return formattedKey + ':\n' + formattedValue;
+        return '$formattedKey:\n$formattedValue';
       }
 
-      return formattedKey + ': ' + formattedValue;
+      return '$formattedKey: $formattedValue';
     }).join(lineEnding);
   }
 

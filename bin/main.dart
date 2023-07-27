@@ -32,7 +32,8 @@ Future<void> main(List<String> arguments) async {
   }
 }
 
-void executeOptions(ArgResults results, List<String> arguments, CommandRunner runner) {
+void executeOptions(
+    ArgResults results, List<String> arguments, CommandRunner runner) {
   if (results.wasParsed('help') || arguments.isEmpty) {
     print(runner.usage);
   } else if (results.wasParsed('version')) {
@@ -48,16 +49,17 @@ Future<void> executeCommand(CommandRunner runner, List<String> arguments) {
 }
 
 CommandRunner configureCommand(List<String> arguments) {
-  var runner = CommandRunner('slidy', 'CLI package manager and template for Flutter.')
-    ..addCommand(InstallCommand())
-    ..addCommand(InstallCommandAbbr())
-    ..addCommand(UninstallCommand())
-    ..addCommand(VersionsCommand())
-    ..addCommand(FindCommand())
-    ..addCommand(StartCommand())
-    ..addCommand(GenerateCommand())
-    ..addCommand(GenerateCommandAbbr())
-    ..addCommand(RunCommand());
+  var runner =
+      CommandRunner('slidy', 'CLI package manager and template for Flutter.')
+        ..addCommand(InstallCommand())
+        ..addCommand(InstallCommandAbbr())
+        ..addCommand(UninstallCommand())
+        ..addCommand(VersionsCommand())
+        ..addCommand(FindCommand())
+        ..addCommand(StartCommand())
+        ..addCommand(GenerateCommand())
+        ..addCommand(GenerateCommandAbbr())
+        ..addCommand(RunCommand());
   //   ..addCommand(UpgradeCommand());
 
   runner.argParser.addFlag('version', abbr: 'v', negatable: false);

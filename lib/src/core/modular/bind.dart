@@ -21,20 +21,38 @@ class Bind<T extends Object> extends BindContract<T> {
   }
 
   ///Bind  an already exist 'Instance' of object..
-  static Bind<T> instance<T extends Object>(T instance, {bool export = false, dynamic Function(T value)? selector}) {
-    return Bind<T>((i) => instance, isSingleton: false, isLazy: true, export: export, selector: selector);
+  static Bind<T> instance<T extends Object>(T instance,
+      {bool export = false, dynamic Function(T value)? selector}) {
+    return Bind<T>((i) => instance,
+        isSingleton: false, isLazy: true, export: export, selector: selector);
   }
 
   ///Bind a 'Singleton' class.
   ///Built together with the module.
   ///The instance will always be the same.
-  static Bind<T> singleton<T extends Object>(T Function(Injector i) inject, {bool export = false, void Function(T value)? onDispose, dynamic Function(T value)? selector}) {
-    return Bind<T>(inject, isSingleton: true, isLazy: false, export: export, onDispose: onDispose, selector: selector);
+  static Bind<T> singleton<T extends Object>(T Function(Injector i) inject,
+      {bool export = false,
+      void Function(T value)? onDispose,
+      dynamic Function(T value)? selector}) {
+    return Bind<T>(inject,
+        isSingleton: true,
+        isLazy: false,
+        export: export,
+        onDispose: onDispose,
+        selector: selector);
   }
 
   ///Create single instance for request.
-  static Bind<T> lazySingleton<T extends Object>(T Function(Injector i) inject, {bool export = false, void Function(T value)? onDispose, dynamic Function(T value)? selector}) {
-    return Bind<T>(inject, isSingleton: true, isLazy: true, export: export, onDispose: onDispose, selector: selector);
+  static Bind<T> lazySingleton<T extends Object>(T Function(Injector i) inject,
+      {bool export = false,
+      void Function(T value)? onDispose,
+      dynamic Function(T value)? selector}) {
+    return Bind<T>(inject,
+        isSingleton: true,
+        isLazy: true,
+        export: export,
+        onDispose: onDispose,
+        selector: selector);
   }
 
   @override

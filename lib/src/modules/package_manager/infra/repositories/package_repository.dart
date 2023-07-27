@@ -35,12 +35,15 @@ class PackageRepositoryImpl implements PackageRepository {
   TaskEither<SlidyError, PackageName> putPackage(PackageName package) {
     return TaskEither(
       () async {
-        pubspec.update([package.isDev ? 'dev_dependencies' : 'dependencies', package.name], package.version);
+        pubspec.update(
+            [package.isDev ? 'dev_dependencies' : 'dependencies', package.name],
+            package.version);
         final result = await pubspec.save();
         if (result) {
           return Right(package);
         } else {
-          return Left(PackageManagerError('$package not added in pubspec.yaml'));
+          return Left(
+              PackageManagerError('$package not added in pubspec.yaml'));
         }
       },
     );
@@ -50,7 +53,10 @@ class PackageRepositoryImpl implements PackageRepository {
   TaskEither<SlidyError, PackageName> removePackage(PackageName package) {
     return TaskEither(() async {
       try {
-        final isRemoved = pubspec.remove([package.isDev ? 'dev_dependencies' : 'dependencies', package.name]);
+        final isRemoved = pubspec.remove([
+          package.isDev ? 'dev_dependencies' : 'dependencies',
+          package.name
+        ]);
         if (!isRemoved) {
           return Left(PackageManagerError('Dependency not exist'));
         }
@@ -58,7 +64,8 @@ class PackageRepositoryImpl implements PackageRepository {
         if (result) {
           return Right(package);
         } else {
-          return Left(PackageManagerError('$package not removed in pubspec.yaml'));
+          return Left(
+              PackageManagerError('$package not removed in pubspec.yaml'));
         }
       } on SlidyError catch (e) {
         return Left(e);

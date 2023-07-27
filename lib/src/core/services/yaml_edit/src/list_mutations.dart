@@ -59,7 +59,7 @@ SourceEdit updateInList(
     if (end <= offset) {
       offset++;
       end = offset;
-      valueString = ' ' + valueString;
+      valueString = ' $valueString';
     }
 
     return SourceEdit(offset, end - offset, valueString);
@@ -168,7 +168,7 @@ String _formatNewBlock(YamlEditor yamlEdit, YamlList list, YamlNode item) {
   if (isCollection(item) && !isFlowYamlCollectionNode(item) && !isEmpty(item)) {
     valueString = valueString.substring(newIndentation);
   }
-  final indentedHyphen = ' ' * listIndentation + '- ';
+  final indentedHyphen = '${' ' * listIndentation}- ';
 
   return '$indentedHyphen$valueString$lineEnding';
 }

@@ -34,4 +34,4 @@ data_source_test: |
   } 
 ''';
 
-final data_source = CustomFile(yaml: _dataSourceTemplate);
+final dataSource = CustomFile(yaml: _dataSourceTemplate);

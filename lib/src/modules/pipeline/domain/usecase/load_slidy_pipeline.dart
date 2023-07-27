@@ -20,14 +20,15 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
   TaskEither<SlidyError, SlidyPipelineV1> call(File yamlFile) {
     return TaskEither(() async {
       if (!await yamlFile.exists()) {
-        return Left(SlidyError('YAML file (${yamlFile.path}) not found. Add \'slidy.yaml\' file'));
+        return Left(SlidyError(
+            'YAML file (${yamlFile.path}) not found. Add \'slidy.yaml\' file'));
       }
       final yamlText = await yamlFile.readAsString();
 
       final yamlMap = yamlReader.readYaml(yamlText);
 
       if (yamlMap['slidy'] == null) {
-        return Left(SlidyError('Field [slidy] is required. (ex: slidy: \"1\")'));
+        return Left(SlidyError('Field [slidy] is required. (ex: slidy: "1")'));
       }
 
       if (yamlMap['slidy'] is! String) {
@@ -35,7 +36,8 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
       }
 
       if (yamlMap['slidy'] != '1') {
-        return Left(SlidyError('Slidy Version ${yamlMap['slidy']} not supported'));
+        return Left(
+            SlidyError('Slidy Version ${yamlMap['slidy']} not supported'));
       }
 
       final scripts = yamlMap['scripts'];
@@ -52,11 +54,16 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
           }
           if ((script['run'] == null && script['steps'] == null) || //
               (script['run'] != null && script['steps'] != null)) {
-            return Left(SlidyError('Use [run] or [steps] propertie in Script.'));
+            return Left(
+                SlidyError('Use [run] or [steps] propertie in Script.'));
           }
 
-          if (script['shell'] != null && ShellEnum.values.where((e) => e.name == script['shell']).isEmpty) {
-            return Left(SlidyError('Invalid [shell] propertie. Avaliable values (${ShellEnum.values.map((e) => e.name).join('|')})'));
+          if (script['shell'] != null &&
+              ShellEnum.values
+                  .where((e) => e.name == script['shell'])
+                  .isEmpty) {
+            return Left(SlidyError(
+                'Invalid [shell] propertie. Avaliable values (${ShellEnum.values.map((e) => e.name).join('|')})'));
           }
 
           if (script['environment'] != null && script['environment'] is! Map) {
@@ -70,11 +77,16 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
               return Left(SlidyError('Field [steps] not be a List.'));
             }
             for (var step in steps) {
-              if (step['shell'] != null && ShellEnum.values.where((e) => e.name == step['shell']).isEmpty) {
-                return Left(SlidyError('Invalid [type] propertie. Avaliable values (${ShellEnum.values.map((e) => e.name).join('|')})'));
+              if (step['shell'] != null &&
+                  ShellEnum.values
+                      .where((e) => e.name == step['shell'])
+                      .isEmpty) {
+                return Left(SlidyError(
+                    'Invalid [type] propertie. Avaliable values (${ShellEnum.values.map((e) => e.name).join('|')})'));
               }
               if (step['run'] == null) {
-                return Left(SlidyError('Field [run] is required in [step] propertie.'));
+                return Left(
+                    SlidyError('Field [run] is required in [step] propertie.'));
               }
 
               if (step['condition'] != null && //
@@ -83,8 +95,10 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
                 return Left(SlidyError('Field [condition] must be String.'));
               }
 
-              if (script['environment'] != null && step['environment'] is! Map<String, String>) {
-                return Left(SlidyError('Field [environment] must be Object[String,String].'));
+              if (script['environment'] != null &&
+                  step['environment'] is! Map<String, String>) {
+                return Left(SlidyError(
+                    'Field [environment] must be Object[String,String].'));
               }
             }
           }
@@ -96,7 +110,9 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
       final pipe = SlidyPipelineV1(
         version: yamlMap['slidy'],
         systemVariables: Platform.environment,
-        localVariables: yamlMap['variables'] != null ? fixMapVariables(yamlMap['variables']) : {},
+        localVariables: yamlMap['variables'] != null
+            ? fixMapVariables(yamlMap['variables'])
+            : {},
         scripts: script,
       );
 
@@ -122,10 +138,11 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
         name: value['name'] ?? key,
         run: value['run'],
         description: value['description'] ?? '',
-        environment: value['environment'] == null ? null : value['environment'].cast<String, String>(),
-        shell: ShellEnum.values.firstWhere((e) => e.name == value['shell'], orElse: () => ShellEnum.command),
+        environment: value['environment']?.cast<String, String>(),
+        shell: ShellEnum.values.firstWhere((e) => e.name == value['shell'],
+            orElse: () => ShellEnum.command),
         workingDirectory: value['working-directory'] ?? '.',
-        steps: value['steps'] != null ? value['steps'].map<Step>(mapToStep).toList() : null,
+        steps: value['steps']?.map<Step>(mapToStep).toList(),
       );
       return MapEntry(key, script);
     });
@@ -136,15 +153,16 @@ class LoadSlidyPipelineImpl implements LoadSlidyPipeline {
       name: map['name'],
       condition: map['condition'],
       description: map['description'] ?? '',
-      environment: map['environment'] == null ? null : map['environment'].cast<String, String>(),
-      shell: ShellEnum.values.firstWhere((e) => e.name == map['shell'], orElse: () => ShellEnum.command),
+      environment: map['environment']?.cast<String, String>(),
+      shell: ShellEnum.values.firstWhere((e) => e.name == map['shell'],
+          orElse: () => ShellEnum.command),
       workingDirectory: map['working-directory'] ?? '.',
       run: map['run'],
     );
   }
 
   bool _validateCondicion(String condition) {
-    final splitter = condition.split(RegExp('(&&|\|\|)'));
+    final splitter = condition.split(RegExp('(&&|||)'));
     for (var element in splitter) {
       if (!element.trim().contains(r'^\w+ *(==|!=) *\w+')) {
         return false;

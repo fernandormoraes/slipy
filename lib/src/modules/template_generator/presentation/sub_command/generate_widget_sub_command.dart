@@ -16,19 +16,28 @@ class GenerateWidgetSubCommand extends CommandBase {
   final description = 'Creates a Widget file';
 
   GenerateWidgetSubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
   }
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'widget');
+    final templateFile =
+        await TemplateFile.getInstance(argResults?.rest.single ?? '', 'widget');
 
-    var result = await Modular.get<Create>().call(TemplateInfo(yaml: widgetsFile, destiny: templateFile.file, key: 'widget'));
+    var result = await Modular.get<Create>().call(TemplateInfo(
+        yaml: widgetsFile, destiny: templateFile.file, key: 'widget'));
     execute(result);
 
     if (!argResults!['notest']) {
-      result = await Modular.get<Create>()
-          .call(TemplateInfo(yaml: widgetsFile, destiny: templateFile.fileTest, key: 'page_test', args: [templateFile.fileNameWithUppeCase + 'Widget', templateFile.import]));
+      result = await Modular.get<Create>().call(TemplateInfo(
+          yaml: widgetsFile,
+          destiny: templateFile.fileTest,
+          key: 'page_test',
+          args: [
+            '${templateFile.fileNameWithUppeCase}Widget',
+            templateFile.import
+          ]));
       execute(result);
     }
   }
@@ -39,5 +48,5 @@ class GenerateWidgetSubCommand extends CommandBase {
 
 class GenerateWidgetAbbrSubCommand extends GenerateWidgetSubCommand {
   @override
-  final name = 'w';
+  String get name => 'w';
 }

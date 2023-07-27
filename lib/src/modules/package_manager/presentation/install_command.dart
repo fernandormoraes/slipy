@@ -17,7 +17,9 @@ class InstallCommand extends CommandBase {
   final description = 'Install (or update) a new package or packages:';
 
   InstallCommand() {
-    argParser.addFlag('dev', negatable: false, help: 'Install (or update) a package in a dev dependency');
+    argParser.addFlag('dev',
+        negatable: false,
+        help: 'Install (or update) a package in a dev dependency');
   }
 
   @override
@@ -39,5 +41,5 @@ class InstallCommand extends CommandBase {
 
 class InstallCommandAbbr extends InstallCommand {
   @override
-  final name = 'i';
+  String get name => 'i';
 }

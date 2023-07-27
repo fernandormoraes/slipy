@@ -10,7 +10,10 @@ class FileMock extends Mock implements File {
   String savedFile = '';
 
   @override
-  Future<File> writeAsString(String contents, {FileMode mode = FileMode.write, Encoding encoding = utf8, bool flush = false}) async {
+  Future<File> writeAsString(String contents,
+      {FileMode mode = FileMode.write,
+      Encoding encoding = utf8,
+      bool flush = false}) async {
     savedFile = contents;
     return this;
   }
@@ -23,6 +26,11 @@ class FileMock extends Mock implements File {
   @override
   String readAsStringSync({Encoding encoding = utf8}) {
     return stringYaml;
+  }
+
+  @override
+  bool existsSync() {
+    return true;
   }
 }
 
@@ -39,7 +47,10 @@ void main() {
     final service = YamlServiceImpl(yaml: file);
     service.remove(['dependencies', 'dart_console']);
     await service.save();
-    expect((loadYaml(file.savedFile)['dependencies'] as Map).containsKey('dart_console'), false);
+    expect(
+        (loadYaml(file.savedFile)['dependencies'] as Map)
+            .containsKey('dart_console'),
+        false);
   });
   test('getValue', () async {
     final file = FileMock();

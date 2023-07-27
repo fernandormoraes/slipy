@@ -18,7 +18,8 @@ class GenerateDataSourceSubCommand extends CommandBase {
   final description = 'Creates a Data Source file';
 
   GenerateDataSourceSubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
     argParser.addOption('bind',
         abbr: 'd',
         allowed: [
@@ -29,7 +30,8 @@ class GenerateDataSourceSubCommand extends CommandBase {
         defaultsTo: 'lazy-singleton',
         allowedHelp: {
           'singleton': 'Object persist while module exists',
-          'lazy-singleton': 'Object persist while module exists, but only after being called first for the fist time',
+          'lazy-singleton':
+              'Object persist while module exists, but only after being called first for the fist time',
           'factory': 'A new object is created each time it is called.',
         },
         help: 'Define type injection in parent module');
@@ -37,7 +39,8 @@ class GenerateDataSourceSubCommand extends CommandBase {
 
   @override
   FutureOr run() async {
-    final templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', null);
+    final templateFile =
+        await TemplateFile.getInstance(argResults?.rest.single ?? '', null);
 
     if (!await templateFile.checkDependencyIsExist('dio')) {
       var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
@@ -51,45 +54,57 @@ class GenerateDataSourceSubCommand extends CommandBase {
 
     var result = await Modular.get<Create>().call(
       TemplateInfo(
-        yaml: data_source,
-        destiny: File(body + '/../infra/datasource/' + last),
+        yaml: dataSource,
+        destiny: File('$body/../infra/datasource/$last'),
         key: 'interface_data_source',
-        args: [templateFile.fileNameWithUppeCase + 'Event'],
+        args: ['${templateFile.fileNameWithUppeCase}Event'],
       ),
     );
 
     execute(result);
 
-    var importDataSourceInterface = 'import \'../../infra/datasource/' + last + '\';';
-    var importDataSource = 'import \'external/datasource/' + last + '\';';
+    var importDataSourceInterface = 'import \'../../infra/datasource/$last\';';
+    var importDataSource = 'import \'external/datasource/$last\';';
 
     result = await Modular.get<Create>().call(
       TemplateInfo(
-        yaml: data_source,
-        destiny: File(body + '/../external/datasource/' + last),
+        yaml: dataSource,
+        destiny: File('$body/../external/datasource/$last'),
         key: 'data_source',
-        args: [templateFile.fileNameWithUppeCase + 'Event', importDataSourceInterface],
+        args: [
+          '${templateFile.fileNameWithUppeCase}Event',
+          importDataSourceInterface
+        ],
       ),
     );
 
     execute(result);
 
     if (result.isRight()) {
-      await utils.injectParentModule(argResults!['bind'], '${templateFile.fileNameWithUppeCase}DataSourceImpl(i())', importDataSource, templateFile.file.parent.parent);
+      await utils.injectParentModule(
+          argResults!['bind'],
+          '${templateFile.fileNameWithUppeCase}DataSourceImpl(i())',
+          importDataSource,
+          templateFile.file.parent.parent);
     }
 
     if (!argResults!['notest']) {
       if (!await templateFile.checkDependencyIsExist('mockito')) {
-        var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+        var command = CommandRunner('slidy', 'CLI')
+          ..addCommand(InstallCommand());
         await command.run(['install', 'mockito@5.0.0']);
       }
 
       result = await Modular.get<Create>().call(
         TemplateInfo(
-          yaml: data_source,
+          yaml: dataSource,
           destiny: templateFile.fileTest,
           key: 'data_source_test',
-          args: ['I${templateFile.fileNameWithUppeCase}DataSource', templateFile.import, '${templateFile.fileNameWithUppeCase}DataSourceImpl'],
+          args: [
+            'I${templateFile.fileNameWithUppeCase}DataSource',
+            templateFile.import,
+            '${templateFile.fileNameWithUppeCase}DataSourceImpl'
+          ],
         ),
       );
 
@@ -103,5 +118,5 @@ class GenerateDataSourceSubCommand extends CommandBase {
 
 class GenerateDataSourceAbbrSubCommand extends GenerateDataSourceSubCommand {
   @override
-  final name = 'd';
+  String get name => 'd';
 }

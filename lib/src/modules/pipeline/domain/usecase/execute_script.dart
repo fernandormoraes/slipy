@@ -21,7 +21,9 @@ class ExecuteStepImpl implements ExecuteStep {
       commands.first,
       environment: step.environment,
       workingDirectory: step.workingDirectory,
-      commands.length <= 1 ? [] : commands.getRange(1, commands.length).toList(),
+      commands.length <= 1
+          ? []
+          : commands.getRange(1, commands.length).toList(),
       runInShell: true,
     );
 

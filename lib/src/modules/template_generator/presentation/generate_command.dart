@@ -16,7 +16,8 @@ class GenerateCommand extends CommandBase {
   @override
   final name = 'generate';
   @override
-  final description = 'Creates a module, page, widget or repository according to the option.';
+  final description =
+      'Creates a module, page, widget or repository according to the option.';
 
   GenerateCommand() {
     addSubcommand(GenerateModuleSubCommand());
@@ -51,5 +52,5 @@ class GenerateCommand extends CommandBase {
 
 class GenerateCommandAbbr extends GenerateCommand {
   @override
-  final name = 'g';
+  String get name => 'g';
 }

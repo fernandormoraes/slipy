@@ -20,7 +20,9 @@ class PackageManagerModule extends Module {
         Bind.singleton<Versions>((i) => VersionsImpl(i()), export: true),
         Bind.singleton<Find>((i) => FindImpl(i()), export: true),
         //infra
-        Bind.singleton<PackageRepository>((i) => PackageRepositoryImpl(pubspec: i(), datasource: i()), export: true),
+        Bind.singleton<PackageRepository>(
+            (i) => PackageRepositoryImpl(pubspec: i(), datasource: i()),
+            export: true),
         //external
         Bind.singleton<PubClient>((i) => PubClient(), export: true),
         Bind.singleton<PubService>((i) => PubServiceImpl(i()), export: true),

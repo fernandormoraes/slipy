@@ -34,5 +34,5 @@ class FindCommand extends CommandBase {
 
 class FindCommandAbbr extends FindCommand {
   @override
-  final name = 'f';
+  String get name => 'f';
 }

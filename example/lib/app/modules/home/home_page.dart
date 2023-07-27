@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   late final HomeStore store;
 
   @override
@@ -25,7 +24,8 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     Modular.dispose<HomeStore>();
     super.dispose();
-  }    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

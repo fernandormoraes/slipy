@@ -30,6 +30,11 @@ class FileMock extends Mock implements File {
   String readAsStringSync({Encoding encoding = utf8}) {
     return stringYaml;
   }
+
+  @override
+  bool existsSync() {
+    return true;
+  }
 }
 
 void main() {

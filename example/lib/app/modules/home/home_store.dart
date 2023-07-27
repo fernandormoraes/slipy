@@ -8,7 +8,7 @@ class HomeStore extends NotifierStore<Exception, int> {
 
     await Future.delayed(Duration(seconds: 1));
 
-    int value = state + 1;
+    final value = state + 1;
     if (value < 5) {
       update(value);
     } else {

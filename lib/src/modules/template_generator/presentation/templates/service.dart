@@ -10,7 +10,7 @@ i_service: |
   
   }
 impl_service: |
-  import '$fileName_interface.dart';
+  import '$fileName|snakecase_interface.dart';
   
   class $fileName|pascalcase implements I$fileName|pascalcase {
   

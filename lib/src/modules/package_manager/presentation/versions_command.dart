@@ -35,5 +35,5 @@ class VersionsCommand extends CommandBase {
 
 class VersionsCommandAbbr extends VersionsCommand {
   @override
-  final name = 'vs';
+  String get name => 'vs';
 }

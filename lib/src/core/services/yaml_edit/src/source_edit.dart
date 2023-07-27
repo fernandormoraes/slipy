@@ -79,15 +79,14 @@ class SourceEdit {
   factory SourceEdit.fromJson(Map<String, dynamic> json) {
     ArgumentError.checkNotNull(json, 'json');
 
-    if (json is Map) {
-      final offset = json['offset'];
-      final length = json['length'];
-      final replacement = json['replacement'];
+    final offset = json['offset'];
+    final length = json['length'];
+    final replacement = json['replacement'];
 
-      if (offset is int && length is int && replacement is String) {
-        return SourceEdit(offset, length, replacement);
-      }
+    if (offset is int && length is int && replacement is String) {
+      return SourceEdit(offset, length, replacement);
     }
+
     throw FormatException('Invalid JSON passed to SourceEdit');
   }
 

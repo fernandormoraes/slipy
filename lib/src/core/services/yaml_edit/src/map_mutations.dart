@@ -84,7 +84,7 @@ SourceEdit _addToBlockMap(
     valueString = '$lineEnding$valueString';
   }
 
-  var formattedValue = ' ' * getMapIndentation(yaml, map) + '$keyString: ';
+  var formattedValue = '${' ' * getMapIndentation(yaml, map)}$keyString: ';
   var offset = map.span.end.offset;
 
   final insertionIndex = getMapInsertionIndex(map, keyString);
@@ -174,7 +174,7 @@ SourceEdit _replaceInBlockMap(
   /// this.
   if (end < start) end = start;
 
-  return SourceEdit(start, end - start, ' ' + valueAsString);
+  return SourceEdit(start, end - start, ' $valueAsString');
 }
 
 /// Performs the string operation on [yaml] to achieve the effect of replacing

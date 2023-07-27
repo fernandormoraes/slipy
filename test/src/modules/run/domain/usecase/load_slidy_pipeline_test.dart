@@ -51,6 +51,7 @@ scripts:
 
 final yamlMapResponse = <String, dynamic>{
   'name': 'Slidy Pipeline',
+  'slidy': '1',
   'version': '1',
   'variables': {'var1': 'myVariable', 'var2': r'${System.FLUTTER_HOME}'},
   'scripts': {
@@ -58,7 +59,7 @@ final yamlMapResponse = <String, dynamic>{
     'clean': {
       'name': 'Clean',
       'description': 'My description',
-      'command': 'flutter clean',
+      'run': 'flutter clean',
     },
     'clean-get': {
       'description': 'My description',

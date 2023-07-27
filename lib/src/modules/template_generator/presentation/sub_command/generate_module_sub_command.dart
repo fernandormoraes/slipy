@@ -19,8 +19,13 @@ class GenerateModuleSubCommand extends CommandBase {
   final description = 'Creates a module';
 
   GenerateModuleSubCommand() {
-    argParser.addFlag('notest', abbr: 'n', negatable: false, help: 'Don`t create file test');
-    argParser.addFlag('complete', abbr: 'c', negatable: true, help: 'Creates a module with Page and Controller/Store files (Triple, MobX, BLoC, Cubit...)');
+    argParser.addFlag('notest',
+        abbr: 'n', negatable: false, help: 'Don`t create file test');
+    argParser.addFlag('complete',
+        abbr: 'c',
+        negatable: true,
+        help:
+            'Creates a module with Page and Controller/Store files (Triple, MobX, BLoC, Cubit...)');
   }
 
   @override
@@ -29,15 +34,24 @@ class GenerateModuleSubCommand extends CommandBase {
       throw UsageException('value not passed for a module command', usage);
     }
 
-    var templateFile = await TemplateFile.getInstance(argResults?.rest.single ?? '', 'module');
-    templateFile = await TemplateFile.getInstance('${argResults!.rest.first}/${templateFile.fileName}', 'module');
+    var templateFile =
+        await TemplateFile.getInstance(argResults?.rest.single ?? '', 'module');
+    templateFile = await TemplateFile.getInstance(
+        '${argResults!.rest.first}/${templateFile.fileName}', 'module');
 
-    var result = await Modular.get<Create>().call(TemplateInfo(key: 'module', destiny: templateFile.file, yaml: generateFile));
+    var result = await Modular.get<Create>().call(TemplateInfo(
+        key: 'module', destiny: templateFile.file, yaml: generateFile));
     execute(result);
 
     if (!argResults!['notest']) {
-      result = await Modular.get<Create>()
-          .call(TemplateInfo(yaml: generateFile, destiny: templateFile.fileTest, key: 'module_test', args: [templateFile.fileNameWithUppeCase + 'Module', templateFile.import]));
+      result = await Modular.get<Create>().call(TemplateInfo(
+          yaml: generateFile,
+          destiny: templateFile.fileTest,
+          key: 'module_test',
+          args: [
+            '${templateFile.fileNameWithUppeCase}Module',
+            templateFile.import
+          ]));
       execute(result);
     }
 
@@ -46,13 +60,32 @@ class GenerateModuleSubCommand extends CommandBase {
     var command = CommandRunner('slidy', 'CLI')..addCommand(GenerateCommand());
     final yamlService = Modular.get<YamlService>();
     final node = yamlService.getValue(['dependencies']);
-    final smList = ['flutter_triple', 'triple', 'flutter_bloc', 'bloc', 'flutter_mobx', 'bloc', 'rx_notifier'];
-    final selected = node?.value.keys.firstWhere((element) => smList.contains(element)) as String;
+    final smList = [
+      'flutter_triple',
+      'triple',
+      'flutter_bloc',
+      'bloc',
+      'flutter_mobx',
+      'bloc',
+      'rx_notifier'
+    ];
+    final selected = node?.value.keys
+        .firstWhere((element) => smList.contains(element)) as String;
 
-    await command.run(['generate', selected.replaceFirst('flutter_', ''), '${argResults!.rest.first}/${templateFile.fileName}', '--page']);
-    templateFile = await TemplateFile.getInstance('${argResults!.rest.first}/${templateFile.fileName}', 'page');
+    await command.run([
+      'generate',
+      selected.replaceFirst('flutter_', ''),
+      '${argResults!.rest.first}/${templateFile.fileName}',
+      '--page'
+    ]);
+    templateFile = await TemplateFile.getInstance(
+        '${argResults!.rest.first}/${templateFile.fileName}', 'page');
 
-    await utils.injectParentModuleRouting('/', '${templateFile.fileNameWithUppeCase}Page()', templateFile.import, templateFile.file.parent);
+    await utils.injectParentModuleRouting(
+        '/',
+        '${templateFile.fileNameWithUppeCase}Page()',
+        templateFile.import,
+        templateFile.file.parent);
   }
 
   @override
@@ -61,5 +94,5 @@ class GenerateModuleSubCommand extends CommandBase {
 
 class GenerateModuleAbbrSubCommand extends GenerateModuleSubCommand {
   @override
-  final name = 'm';
+  String get name => 'm';
 }
