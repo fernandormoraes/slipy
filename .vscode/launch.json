@@ -5,15 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "slidy version",
+            "name": "slipy version",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/slipy.dart",
             "cwd": "example",
             "type": "dart",
             "args": ["--version"]
         },
         {
-            "name": "slidy install",
+            "name": "slipy install",
             "request": "launch",
             "program": "../bin/main.dart",
             "cwd": "example",
@@ -21,7 +21,7 @@
             "args": ["install", "triple"]
         },
         {
-            "name": "slidy install error",
+            "name": "slipy install error",
             "request": "launch",
             "program": "../bin/main.dart",
             "cwd": "example",
@@ -29,54 +29,54 @@
             "args": ["install", "tripple"]
         },
         {
-            "name": "slidy uninstall",
+            "name": "slipy uninstall",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/slipy.dart",
             "cwd": "example",
             "type": "dart",
             "args": ["uninstall", "triple"]
         },
         {
-            "name": "slidy start",
+            "name": "slipy start",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/slipy.dart",
             "cwd": "example",
             "console": "terminal",
             "type": "dart",
             "args": ["start", "-f"]
         },
         {
-            "name": "slidy generate m 1",
+            "name": "slipy generate m 1",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/slipy.dart",
             "cwd": "example",
             "type": "dart",
             "args": ["g", "m","home"]
         },
         {
-            "name": "slidy generate m 2",
+            "name": "slipy generate m 2",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/slipy.dart",
             "cwd": "example",
             "type": "dart",
             "args": ["g", "m","home/internal"]
         },{
-            "name": "slidy generate triple",
+            "name": "slipy generate triple",
             "request": "launch",
-            "program": "../bin/slidy.dart",
+            "program": "../bin/slipy.dart",
             "cwd": "example",
             "type": "dart",
             "args": ["g", "triple","home/home"]
         
         },{
-            "name": "slidy run reload",
+            "name": "slipy run reload",
             "request": "launch",
             "program": "bin/main.dart",
             "type": "dart",
             "args": ["run", "reload"]
         
         },{
-            "name": "slidy run complete",
+            "name": "slipy run complete",
             "request": "launch",
             "program": "bin/main.dart",
             "type": "dart",

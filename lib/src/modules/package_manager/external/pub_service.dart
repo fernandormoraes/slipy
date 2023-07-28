@@ -1,6 +1,6 @@
 import 'package:pub_api_client/pub_api_client.dart';
-import 'package:slidy/src/modules/package_manager/domain/errors/errors.dart';
-import 'package:slidy/src/modules/package_manager/infra/datasources/pub_service.dart';
+import 'package:slipy/src/modules/package_manager/domain/errors/errors.dart';
+import 'package:slipy/src/modules/package_manager/infra/datasources/pub_service.dart';
 
 class PubServiceImpl implements PubService {
   final PubClient client;

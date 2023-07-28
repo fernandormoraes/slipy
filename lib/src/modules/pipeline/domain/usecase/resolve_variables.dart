@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:slidy/src/core/errors/errors.dart';
+import 'package:slipy/src/core/errors/errors.dart';
 
-import '../entities/slidy_pipeline_v1.dart';
+import '../entities/slipy_pipeline_v1.dart';
 
 abstract class ResolveVariables {
-  Either<SlidyError, String> call(String text, SlidyPipelineV1 pipeline);
+  Either<SlipyError, String> call(String text, SlipyPipelineV1 pipeline);
 }
 
 class ResolveVariablesImpl implements ResolveVariables {
   ResolveVariablesImpl();
 
   @override
-  Either<SlidyError, String> call(String text, SlidyPipelineV1 pipeline) {
+  Either<SlipyError, String> call(String text, SlipyPipelineV1 pipeline) {
     text = resolveVariable(text, pipeline.localVariables,
         r'(?<var>\$\{Local\.var\.(?<key>\w+)\})');
     text = resolveVariable(text, pipeline.systemVariables,

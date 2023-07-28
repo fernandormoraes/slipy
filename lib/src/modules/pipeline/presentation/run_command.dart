@@ -3,18 +3,18 @@ import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
 import 'package:path/path.dart' as path;
-import 'package:slidy/slidy.dart';
-import 'package:slidy/src/core/prints/prints.dart' as output;
-import 'package:slidy/src/modules/pipeline/domain/entities/slidy_pipeline_v1.dart';
-import 'package:slidy/src/modules/pipeline/domain/usecase/execute_script.dart';
-import 'package:slidy/src/modules/pipeline/domain/usecase/load_slidy_pipeline.dart';
-import 'package:slidy/src/modules/pipeline/domain/usecase/resolve_variables.dart';
+import 'package:slipy/slipy.dart';
+import 'package:slipy/src/core/prints/prints.dart' as output;
+import 'package:slipy/src/modules/pipeline/domain/entities/slipy_pipeline_v1.dart';
+import 'package:slipy/src/modules/pipeline/domain/usecase/execute_script.dart';
+import 'package:slipy/src/modules/pipeline/domain/usecase/load_slipy_pipeline.dart';
+import 'package:slipy/src/modules/pipeline/domain/usecase/resolve_variables.dart';
 
 import '../../../core/command/command_base.dart';
 import '../domain/usecase/condition_eval.dart';
 
 class RunCommand extends CommandBase {
-  final loader = Modular.get<LoadSlidyPipeline>();
+  final loader = Modular.get<LoadSlipyPipeline>();
   final resolveVariables = Modular.get<ResolveVariables>();
   final executor = Modular.get<ExecuteStep>();
   final conditionEval = Modular.get<ConditionEval>();
@@ -23,7 +23,7 @@ class RunCommand extends CommandBase {
     argParser.addOption(
       'schema',
       abbr: 's',
-      defaultsTo: 'slidy.yaml',
+      defaultsTo: 'slipy.yaml',
       help: 'Select a config YAML file.',
     );
   }
@@ -44,12 +44,12 @@ class RunCommand extends CommandBase {
     }
 
     if (commands.isEmpty) {
-      output.error('Please, use \'slidy run --help\'');
+      output.error('Please, use \'slipy run --help\'');
       return;
     }
     final command = commands.first;
 
-    final schema = argResults?['schema'] ?? 'slidy.yaml';
+    final schema = argResults?['schema'] ?? 'slipy.yaml';
     final fileSchema = File(schema);
 
     final result = await loader(fileSchema) //
@@ -60,12 +60,12 @@ class RunCommand extends CommandBase {
     result.fold(output.error, output.success);
   }
 
-  TaskEither<SlidyError, String> executeScript(
-      String command, SlidyPipelineV1 pipeline) {
+  TaskEither<SlipyError, String> executeScript(
+      String command, SlipyPipelineV1 pipeline) {
     return TaskEither(() async {
       var script = pipeline.scripts[command];
       if (script == null) {
-        return Left(SlidyError('Command not found'));
+        return Left(SlipyError('Command not found'));
       }
 
       var resolvedScript = script.copyWith(
@@ -138,7 +138,7 @@ class RunCommand extends CommandBase {
         }
         final result = await executor(step);
         if (!result) {
-          return Left(SlidyError('Step \'${step.name}\' failure.'));
+          return Left(SlipyError('Step \'${step.name}\' failure.'));
         }
         print('\n----------- END STEP ----------\n');
       }

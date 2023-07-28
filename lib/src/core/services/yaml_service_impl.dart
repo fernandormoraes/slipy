@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:slidy/src/core/services/yaml_service.dart';
+import 'package:slipy/src/core/services/yaml_service.dart';
 import 'package:yaml/yaml.dart';
 
 import 'yaml_edit/src/editor.dart';
@@ -66,8 +66,7 @@ class YamlServiceImpl implements YamlService {
     final node = getValue(['include']);
     if (node is YamlScalar) {
       final file = getYamlFile(yaml, node.value);
-      final newYaml =
-          '$yamlEditor\n${await file.readAsString()}';
+      final newYaml = '$yamlEditor\n${await file.readAsString()}';
       return YamlServiceImpl(
           yaml: File(''), customyamlEditor: YamlEditor(newYaml));
     } else if (node is YamlList) {

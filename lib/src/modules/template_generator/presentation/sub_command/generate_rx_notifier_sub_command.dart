@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -44,7 +44,7 @@ class GenerateRxNotifierSubCommand extends CommandBase {
         argResults?.rest.single ?? '', 'controller');
 
     if (!await templateFile.checkDependencyIsExist('rx_notifier')) {
-      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+      var command = CommandRunner('slipy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'rx_notifier']);
     }
 
@@ -61,7 +61,7 @@ class GenerateRxNotifierSubCommand extends CommandBase {
       }
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}Controller()',
+          '${templateFile.fileNameWithUpperCase}Controller()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -72,7 +72,7 @@ class GenerateRxNotifierSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'rx_notifier_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Controller',
+            '${templateFile.fileNameWithUpperCase}Controller',
             templateFile.import
           ]));
       execute(result);

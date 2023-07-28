@@ -1,5 +1,5 @@
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
-class TemplateCreatorError extends SlidyError {
+class TemplateCreatorError extends SlipyError {
   TemplateCreatorError(String message) : super(message);
 }

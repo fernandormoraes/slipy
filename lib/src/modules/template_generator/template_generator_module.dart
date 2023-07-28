@@ -1,7 +1,7 @@
-import 'package:slidy/src/core/modular/bind.dart';
-import 'package:slidy/src/core/modular/module.dart';
-import 'package:slidy/src/modules/template_generator/domain/usecases/add_line.dart';
-import 'package:slidy/src/modules/template_generator/domain/usecases/create.dart';
+import 'package:slipy/src/core/modular/bind.dart';
+import 'package:slipy/src/core/modular/module.dart';
+import 'package:slipy/src/modules/template_generator/domain/usecases/add_line.dart';
+import 'package:slipy/src/modules/template_generator/domain/usecases/create.dart';
 
 class TemplateGeneratorModule extends Module {
   @override

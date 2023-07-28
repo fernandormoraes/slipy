@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -34,7 +34,7 @@ class GeneratePageSubCommand extends CommandBase {
     if (argResults!['routing'] != null) {
       await utils.injectParentModuleRouting(
           argResults!['routing'],
-          '${templateFile.fileNameWithUppeCase}Page()',
+          '${templateFile.fileNameWithUpperCase}Page()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -45,7 +45,7 @@ class GeneratePageSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'page_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Page',
+            '${templateFile.fileNameWithUpperCase}Page',
             templateFile.import
           ]));
       execute(result);

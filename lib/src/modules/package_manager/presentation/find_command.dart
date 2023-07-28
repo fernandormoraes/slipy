@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
-import 'package:slidy/src/modules/package_manager/domain/usecases/find.dart';
+import 'package:slipy/slipy.dart';
+import 'package:slipy/src/modules/package_manager/domain/usecases/find.dart';
 
 import '../../../core/command/command_base.dart';
 

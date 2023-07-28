@@ -1,4 +1,4 @@
-import 'package:slidy/src/core/models/custom_file.dart';
+import 'package:slipy/src/core/models/custom_file.dart';
 
 final _mainTemplate = ''' 
 main: |
@@ -34,7 +34,7 @@ app_widget: |
     @override
     Widget build(BuildContext context) {
       return MaterialApp.router(
-        title: 'Flutter Slidy',
+        title: 'Flutter slipy',
         theme: ThemeData(primarySwatch: Colors.blue),
         routerDelegate: Modular.routerDelegate,
         routeInformationParser: Modular.routeInformationParser,

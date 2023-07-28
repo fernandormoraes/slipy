@@ -1,4 +1,4 @@
-import 'package:slidy/src/core/models/custom_file.dart';
+import 'package:slipy/src/core/models/custom_file.dart';
 
 final _repositoryTemplate = r''' 
 repository: |

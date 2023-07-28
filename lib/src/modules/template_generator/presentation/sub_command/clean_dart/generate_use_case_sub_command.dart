@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../../core/command/command_base.dart';
 import '../../../domain/models/template_info.dart';
@@ -42,7 +42,7 @@ class GenerateUseCaseSubCommand extends CommandBase {
         await TemplateFile.getInstance(argResults?.rest.single ?? '', null);
 
     if (!await templateFile.checkDependencyIsExist('dartz')) {
-      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+      var command = CommandRunner('slipy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'dartz@0.10.0-nullsafety.1 ']);
     }
 
@@ -50,12 +50,12 @@ class GenerateUseCaseSubCommand extends CommandBase {
         yaml: useCase,
         destiny: templateFile.file,
         key: 'use_case',
-        args: ['${templateFile.fileNameWithUppeCase}Event']));
+        args: ['${templateFile.fileNameWithUpperCase}Event']));
     execute(result);
     if (result.isRight()) {
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}()',
+          '${templateFile.fileNameWithUpperCase}()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -66,9 +66,9 @@ class GenerateUseCaseSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'use_case_test',
           args: [
-            templateFile.fileNameWithUppeCase,
+            templateFile.fileNameWithUpperCase,
             templateFile.import,
-            templateFile.fileNameWithUppeCase
+            templateFile.fileNameWithUpperCase
           ]));
       execute(result);
     }

@@ -1,10 +1,10 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../repositories/package_repository.dart';
 
 abstract class Find {
-  TaskEither<SlidyError, SlidyProccess> call(String packageName);
+  TaskEither<SlipyError, SlipyProccess> call(String packageName);
 }
 
 class FindImpl implements Find {
@@ -13,16 +13,16 @@ class FindImpl implements Find {
   FindImpl(this.repository);
 
   @override
-  TaskEither<SlidyError, SlidyProccess> call(String packageName) {
-    return TaskEither<SlidyError, String>.of(packageName) //
+  TaskEither<SlipyError, SlipyProccess> call(String packageName) {
+    return TaskEither<SlipyError, String>.of(packageName) //
         .flatMap(repository.findPackage)
         .map(_finishProcess);
   }
 
-  SlidyProccess _finishProcess(List<String> packages) {
+  SlipyProccess _finishProcess(List<String> packages) {
     for (var element in packages) {
       print(element);
     }
-    return SlidyProccess(result: '');
+    return SlipyProccess(result: '');
   }
 }

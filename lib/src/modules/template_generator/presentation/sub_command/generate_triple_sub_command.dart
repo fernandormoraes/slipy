@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -44,7 +44,7 @@ class GenerateTripleSubCommand extends CommandBase {
         await TemplateFile.getInstance(argResults?.rest.single ?? '', 'store');
 
     if (!await templateFile.checkDependencyIsExist('flutter_triple')) {
-      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+      var command = CommandRunner('slipy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'flutter_triple']);
       await command.run(['install', 'triple_test', '--dev']);
     }
@@ -62,7 +62,7 @@ class GenerateTripleSubCommand extends CommandBase {
       }
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}Store()',
+          '${templateFile.fileNameWithUpperCase}Store()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -73,7 +73,7 @@ class GenerateTripleSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'triple_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Store',
+            '${templateFile.fileNameWithUpperCase}Store',
             templateFile.import
           ]));
       execute(result);

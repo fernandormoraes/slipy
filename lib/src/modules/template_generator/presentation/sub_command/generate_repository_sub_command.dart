@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -53,7 +53,7 @@ class GenerateRepositorySubCommand extends CommandBase {
     if (result.isRight()) {
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}Repository()',
+          '${templateFile.fileNameWithUpperCase}Repository()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -67,7 +67,7 @@ class GenerateRepositorySubCommand extends CommandBase {
               '${templateFile.file.parent.path}/${templateFile.fileName}_repository_interface.dart'),
           key: 'i_repository',
           args: [
-            '${templateFile.fileNameWithUppeCase}Repository',
+            '${templateFile.fileNameWithUpperCase}Repository',
             templateFile.import
           ]));
       execute(result);
@@ -79,7 +79,7 @@ class GenerateRepositorySubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'test_repository',
           args: [
-            '${templateFile.fileNameWithUppeCase}Repository',
+            '${templateFile.fileNameWithUpperCase}Repository',
             templateFile.import
           ]));
       execute(result);

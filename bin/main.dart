@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
-import 'package:slidy/slidy.dart';
-import 'package:slidy/src/main_module.dart';
-import 'package:slidy/src/version.dart';
+import 'package:slipy/slipy.dart';
+import 'package:slipy/src/main_module.dart';
+import 'package:slipy/src/version.dart';
 
 Future<void> main(List<String> arguments) async {
   Modular.init(MainModule());
@@ -50,7 +50,7 @@ Future<void> executeCommand(CommandRunner runner, List<String> arguments) {
 
 CommandRunner configureCommand(List<String> arguments) {
   var runner =
-      CommandRunner('slidy', 'CLI package manager and template for Flutter.')
+      CommandRunner('slipy', 'CLI package manager and template for Flutter.')
         ..addCommand(InstallCommand())
         ..addCommand(InstallCommandAbbr())
         ..addCommand(UninstallCommand())
@@ -79,5 +79,5 @@ void version() async {
 ''');
   print('CLI package manager and template for Flutter');
   print('');
-  print('Slidy version: $packageVersion');
+  print('slipy version: $packageVersion');
 }

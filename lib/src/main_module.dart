@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:http/http.dart';
-import 'package:slidy/src/core/modular/module.dart';
-import 'package:slidy/src/core/services/yaml_service.dart';
-import 'package:slidy/src/core/services/yaml_service_impl.dart';
+import 'package:slipy/src/core/modular/module.dart';
+import 'package:slipy/src/core/services/yaml_service.dart';
+import 'package:slipy/src/core/services/yaml_service_impl.dart';
 
 import 'core/modular/bind.dart';
 import 'modules/package_manager/package_manager_module.dart';

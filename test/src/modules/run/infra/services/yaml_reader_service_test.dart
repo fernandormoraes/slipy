@@ -1,4 +1,4 @@
-import 'package:slidy/src/modules/pipeline/infra/services/yaml_reader_service.dart';
+import 'package:slipy/src/modules/pipeline/infra/services/yaml_reader_service.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -6,7 +6,7 @@ void main() {
     final service = YamlReaderServiceImpl();
 
     final result = service.readYaml(r'''
-name: Slidy Pipeline
+name: slipy Pipeline
 version: 1
 
 variables:

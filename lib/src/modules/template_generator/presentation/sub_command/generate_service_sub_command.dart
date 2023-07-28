@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -53,7 +53,7 @@ class GenerateServiceSubCommand extends CommandBase {
     if (result.isRight()) {
       await utils.injectParentModule(
         argResults!['bind'],
-        '${templateFile.fileNameWithUppeCase}Service()',
+        '${templateFile.fileNameWithUpperCase}Service()',
         templateFile.import,
         templateFile.file.parent,
       );
@@ -68,7 +68,7 @@ class GenerateServiceSubCommand extends CommandBase {
               '${templateFile.file.parent.path}/${templateFile.fileName}_service_interface.dart'),
           key: 'i_service',
           args: [
-            '${templateFile.fileNameWithUppeCase}Service',
+            '${templateFile.fileNameWithUpperCase}Service',
             templateFile.import
           ]));
       execute(result);
@@ -80,7 +80,7 @@ class GenerateServiceSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'test_service',
           args: [
-            '${templateFile.fileNameWithUppeCase}Service',
+            '${templateFile.fileNameWithUpperCase}Service',
             templateFile.import
           ]));
       execute(result);

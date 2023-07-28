@@ -1,12 +1,12 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:slidy/src/modules/package_manager/domain/repositories/package_repository.dart';
+import 'package:slipy/src/modules/package_manager/domain/repositories/package_repository.dart';
 
-import '../../../../core/entities/slidy_process.dart';
+import '../../../../core/entities/slipy_process.dart';
 import '../../../../core/errors/errors.dart';
 import '../params/package_name.dart';
 
 abstract class Install {
-  TaskEither<SlidyError, SlidyProccess> call(PackageName package);
+  TaskEither<SlipyError, SlipyProccess> call(PackageName package);
 }
 
 class InstallImpl implements Install {
@@ -15,13 +15,13 @@ class InstallImpl implements Install {
   InstallImpl(this.repository);
 
   @override
-  TaskEither<SlidyError, SlidyProccess> call(PackageName package) {
+  TaskEither<SlipyError, SlipyProccess> call(PackageName package) {
     return _resolveVersion(package) //
         .flatMap(repository.putPackage)
         .map(_finishProcess);
   }
 
-  TaskEither<SlidyError, PackageName> _resolveVersion(PackageName package) {
+  TaskEither<SlipyError, PackageName> _resolveVersion(PackageName package) {
     return TaskEither(() async {
       if (package.name.contains('@')) {
         final elements = package.name.split('@');
@@ -35,7 +35,7 @@ class InstallImpl implements Install {
     });
   }
 
-  SlidyProccess _finishProcess(PackageName package) {
-    return SlidyProccess(result: 'Added ${package.name}: ${package.version}');
+  SlipyProccess _finishProcess(PackageName package) {
+    return SlipyProccess(result: 'Added ${package.name}: ${package.version}');
   }
 }

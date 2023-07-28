@@ -1,7 +1,7 @@
-class SlidyError implements Exception {
+class SlipyError implements Exception {
   final String message;
 
-  SlidyError(this.message);
+  SlipyError(this.message);
 
   @override
   String toString() {

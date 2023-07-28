@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
-import 'package:slidy/src/modules/template_generator/domain/models/line_params.dart';
-import 'package:slidy/src/modules/template_generator/domain/usecases/add_line.dart';
+import 'package:slipy/slipy.dart';
+import 'package:slipy/src/modules/template_generator/domain/models/line_params.dart';
+import 'package:slipy/src/modules/template_generator/domain/usecases/add_line.dart';
 
 import 'template_file.dart';
 
@@ -73,10 +73,10 @@ Future<void> addedInjectionInPage(
     required String pathCommand,
     required bool noTest,
     required String type}) async {
-  var command = CommandRunner('slidy', 'CLI')..addCommand(GenerateCommand());
+  var command = CommandRunner('slipy', 'CLI')..addCommand(GenerateCommand());
   await command.run(['generate', 'page', pathCommand, if (noTest) '--notest']);
   final insertLine =
-      '  final ${templateFile.fileNameWithUppeCase}$type ${type.toLowerCase()} = Modular.get();';
+      '  final ${templateFile.fileNameWithUpperCase}$type ${type.toLowerCase()} = Modular.get();';
   final pageFile = File(
       '${templateFile.file.parent.path}/${templateFile.fileName}_page.dart');
   var result = await Modular.get<AddLine>()

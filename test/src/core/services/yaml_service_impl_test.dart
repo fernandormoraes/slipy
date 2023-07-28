@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mocktail/mocktail.dart';
-import 'package:slidy/src/core/services/yaml_service_impl.dart';
+import 'package:slipy/src/core/services/yaml_service_impl.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
@@ -61,10 +61,10 @@ void main() {
 }
 
 const stringYaml = ''' 
-name: slidy
+name: slipy
 description: CLI package manager and template for Flutter. Generate Modules, Pages, Widgets, BLoCs, MobX, Triple and more.
 version: 3.0.2
-homepage: https://github.com/Flutterando/slidy
+homepage: https://github.com/fernandormoraes/slipy
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -91,7 +91,7 @@ dev_dependencies:
 
 
 executables:
-  slidy: slidy
+  slipy: slipy
 
 
 ''';

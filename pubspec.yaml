@@ -1,27 +1,27 @@
-name: slidy
+name: slipy
 description: CLI package manager, template for Flutter and Pipeline (scripts). Generate Modules, Pages, Widgets, BLoCs, MobX, Triple and more.
 version: 4.0.4
-homepage: https://github.com/Flutterando/slidy
+homepage: https://github.com/fernandormoraes/slipy
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
-  path: ^1.8.2
-  dart_console: ^1.0.0
+  path: ^1.8.3
+  dart_console: ^1.2.0
   http: ^0.13.2
   args: ^2.1.0
   ansicolor: ^2.0.1
-  recase: ^4.0.0
-  file: ^6.1.0
-  yaml: ^3.1.0
-  collection: ^1.14.11
-  meta: ^1.1.8
-  source_span: ^1.7.0
-  fhir_yaml: ^0.4.0
-  rxdart: ^0.26.0
-  io: ^1.0.0
-  fpdart: ^0.2.0
+  recase: ^4.1.0
+  file: ^7.0.0
+  yaml: ^3.1.2
+  collection: ^1.18.0
+  meta: ^1.9.1
+  source_span: ^1.10.0
+  fhir_yaml: ^0.9.0
+  rxdart: ^0.27.7
+  io: ^1.0.4
+  fpdart: ^1.0.0
   pub_api_client: ^2.2.1
   modular_core: ^2.0.3+1
 
@@ -40,8 +40,8 @@ dev_dependencies:
 #   args: '2.0.0-nullsafety.0'
 
 scripts:
-  build: mkdir build\windows & dart compile exe bin\slidy.dart -o build\windows\slidy.exe
+  build: mkdir build\windows & dart compile exe bin\slipy.dart -o build\windows\slipy.exe
 
 
 executables:
-  slidy: main
+  slipy: main

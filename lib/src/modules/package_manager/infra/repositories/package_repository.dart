@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:slidy/src/core/errors/errors.dart';
-import 'package:slidy/src/core/services/yaml_service.dart';
-import 'package:slidy/src/modules/package_manager/domain/errors/errors.dart';
-import 'package:slidy/src/modules/package_manager/domain/params/package_name.dart';
-import 'package:slidy/src/modules/package_manager/domain/repositories/package_repository.dart';
-import 'package:slidy/src/modules/package_manager/infra/datasources/pub_service.dart';
+import 'package:slipy/src/core/errors/errors.dart';
+import 'package:slipy/src/core/services/yaml_service.dart';
+import 'package:slipy/src/modules/package_manager/domain/errors/errors.dart';
+import 'package:slipy/src/modules/package_manager/domain/params/package_name.dart';
+import 'package:slipy/src/modules/package_manager/domain/repositories/package_repository.dart';
+import 'package:slipy/src/modules/package_manager/infra/datasources/pub_service.dart';
 
 class PackageRepositoryImpl implements PackageRepository {
   final YamlService pubspec;
@@ -15,12 +15,12 @@ class PackageRepositoryImpl implements PackageRepository {
   PackageRepositoryImpl({required this.pubspec, required this.datasource});
 
   @override
-  TaskEither<SlidyError, List<String>> getVersions(String packageName) {
+  TaskEither<SlipyError, List<String>> getVersions(String packageName) {
     return TaskEither(() async {
       try {
         final versions = await datasource.fetchVersions(packageName);
         return Right(versions);
-      } on SlidyError catch (e) {
+      } on SlipyError catch (e) {
         return Left(e);
       } on SocketException catch (e) {
         if (e.osError?.errorCode == 11001) {
@@ -32,7 +32,7 @@ class PackageRepositoryImpl implements PackageRepository {
   }
 
   @override
-  TaskEither<SlidyError, PackageName> putPackage(PackageName package) {
+  TaskEither<SlipyError, PackageName> putPackage(PackageName package) {
     return TaskEither(
       () async {
         pubspec.update(
@@ -50,7 +50,7 @@ class PackageRepositoryImpl implements PackageRepository {
   }
 
   @override
-  TaskEither<SlidyError, PackageName> removePackage(PackageName package) {
+  TaskEither<SlipyError, PackageName> removePackage(PackageName package) {
     return TaskEither(() async {
       try {
         final isRemoved = pubspec.remove([
@@ -67,19 +67,19 @@ class PackageRepositoryImpl implements PackageRepository {
           return Left(
               PackageManagerError('$package not removed in pubspec.yaml'));
         }
-      } on SlidyError catch (e) {
+      } on SlipyError catch (e) {
         return Left(e);
       }
     });
   }
 
   @override
-  TaskEither<SlidyError, List<String>> findPackage(String packageName) {
+  TaskEither<SlipyError, List<String>> findPackage(String packageName) {
     return TaskEither(() async {
       try {
         final packages = await datasource.searchPackage(packageName);
         return Right(packages);
-      } on SlidyError catch (e) {
+      } on SlipyError catch (e) {
         return Left(e);
       } on SocketException catch (e) {
         if (e.osError?.errorCode == 11001) {

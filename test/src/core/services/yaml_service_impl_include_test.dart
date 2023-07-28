@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mocktail/mocktail.dart';
-import 'package:slidy/src/core/services/yaml_service_impl.dart';
+import 'package:slipy/src/core/services/yaml_service_impl.dart';
 import 'package:test/test.dart';
 
 class FileMock extends Mock implements File {
@@ -47,7 +47,7 @@ void main() {
         }).readAllIncludes();
 
     final node = service.getValue(['name']);
-    expect(node?.value, 'slidy');
+    expect(node?.value, 'slipy');
   });
   test('include list', () async {
     final file = FileMock(stringYamlList);
@@ -63,9 +63,9 @@ void main() {
         }).readAllIncludes();
 
     final node = service.getValue(['name']);
-    expect(node?.value, 'slidy');
+    expect(node?.value, 'slipy');
     final node2 = service.getValue(['command']);
-    expect(node2?.value, 'slidy-command');
+    expect(node2?.value, 'slipy-command');
   });
 }
 
@@ -79,8 +79,8 @@ include:
 ''';
 
 const otherYaml = ''' 
-name: slidy
+name: slipy
 ''';
 const otherYaml2 = ''' 
-command: slidy-command
+command: slipy-command
 ''';

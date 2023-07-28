@@ -1,4 +1,4 @@
-import 'package:slidy/src/modules/pipeline/domain/usecase/condition_eval.dart';
+import 'package:slipy/src/modules/pipeline/domain/usecase/condition_eval.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -4,8 +4,8 @@ import '../../../../core/errors/errors.dart';
 import '../params/package_name.dart';
 
 abstract class PackageRepository {
-  TaskEither<SlidyError, List<String>> getVersions(String packageName);
-  TaskEither<SlidyError, PackageName> putPackage(PackageName package);
-  TaskEither<SlidyError, PackageName> removePackage(PackageName package);
-  TaskEither<SlidyError, List<String>> findPackage(String packageName);
+  TaskEither<SlipyError, List<String>> getVersions(String packageName);
+  TaskEither<SlipyError, PackageName> putPackage(PackageName package);
+  TaskEither<SlipyError, PackageName> removePackage(PackageName package);
+  TaskEither<SlipyError, List<String>> findPackage(String packageName);
 }

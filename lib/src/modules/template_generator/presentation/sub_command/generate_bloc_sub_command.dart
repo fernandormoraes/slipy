@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -43,7 +43,7 @@ class GenerateBlocSubCommand extends CommandBase {
     final templateFile =
         await TemplateFile.getInstance(argResults?.rest.single ?? '', 'bloc');
 
-    var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+    var command = CommandRunner('slipy', 'CLI')..addCommand(InstallCommand());
     if (!await templateFile.checkDependencyIsExist('bloc')) {
       await command.run(['install', 'bloc@8.0.3', 'flutter_bloc@8.0.1']);
       await command.run(['install', 'bloc_test@9.0.3', '--dev']);
@@ -53,7 +53,7 @@ class GenerateBlocSubCommand extends CommandBase {
         yaml: blocFile,
         destiny: templateFile.file,
         key: 'bloc',
-        args: ['${templateFile.fileNameWithUppeCase}Event']));
+        args: ['${templateFile.fileNameWithUpperCase}Event']));
     execute(result);
     if (result.isRight()) {
       if (argResults!['page'] == true) {
@@ -65,7 +65,7 @@ class GenerateBlocSubCommand extends CommandBase {
       }
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}Bloc()',
+          '${templateFile.fileNameWithUpperCase}Bloc()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -76,9 +76,9 @@ class GenerateBlocSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'bloc_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Bloc',
+            '${templateFile.fileNameWithUpperCase}Bloc',
             templateFile.import,
-            '${templateFile.fileNameWithUppeCase}Event'
+            '${templateFile.fileNameWithUpperCase}Event'
           ]));
       execute(result);
     }

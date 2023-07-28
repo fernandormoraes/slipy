@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -44,7 +44,7 @@ class GenerateCubitSubCommand extends CommandBase {
         await TemplateFile.getInstance(argResults?.rest.single ?? '', 'cubit');
 
     if (!await templateFile.checkDependencyIsExist('bloc')) {
-      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+      var command = CommandRunner('slipy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'bloc@8.0.3', 'flutter_bloc@8.0.1']);
       await command.run(['install', 'bloc_test@9.0.3', '--dev']);
     }
@@ -62,7 +62,7 @@ class GenerateCubitSubCommand extends CommandBase {
       }
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}Cubit()',
+          '${templateFile.fileNameWithUpperCase}Cubit()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -73,7 +73,7 @@ class GenerateCubitSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'cubit_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Cubit',
+            '${templateFile.fileNameWithUpperCase}Cubit',
             templateFile.import
           ]));
       execute(result);

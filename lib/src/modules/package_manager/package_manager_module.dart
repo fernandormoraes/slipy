@@ -1,7 +1,7 @@
 import 'package:pub_api_client/pub_api_client.dart';
-import 'package:slidy/src/core/modular/module.dart';
-import 'package:slidy/src/modules/package_manager/domain/usecases/find.dart';
-import 'package:slidy/src/modules/package_manager/domain/usecases/install.dart';
+import 'package:slipy/src/core/modular/module.dart';
+import 'package:slipy/src/modules/package_manager/domain/usecases/find.dart';
+import 'package:slipy/src/modules/package_manager/domain/usecases/install.dart';
 
 import '../../core/modular/bind.dart';
 import 'domain/repositories/package_repository.dart';

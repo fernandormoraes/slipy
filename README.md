@@ -1,69 +1,71 @@
-# Slidy
+# slipy
+
+A forked Slidy project.
 
 CLI script pipeline, package manager and template generator for Flutter. Generate Modules, Pages, Widgets, BLoCs, Controllers, tests and more.
 
 # Installation
 
-You can get Slidy of many ways.
+You can get slipy of many ways.
 
 ## choco (only windows)
 
 ```bash
-choco install slidy
+choco install slipy
 ```
 
 ## Homebrew (macos and linux)
 
 ```bash
-brew tap Flutterando/slidy
-brew install slidy
+brew tap fernandormoraes/slipy
+brew install slipy
 ```
 
 ## Other OS
 
-All binary releases, [click here](https://github.com/Flutterando/slidy/releases).
+All binary releases, [click here](https://github.com/fernandormoraes/slipy/releases).
 
 ## Flutter/Dart directly
 
 ```bash
- dart pub global activate slidy
+ dart pub global activate slipy
 ```
 
 ## Hello world!
 
-After install, exec the slidy version command.
-If the command was completed, the slidy was installed.
+After install, exec the slipy version command.
+If the command was completed, the slipy was installed.
 
 ```bash
- slidy --version
+ slipy --version
 ```
 
-# Slidy pipeline
+# slipy pipeline
 
 
 Organize scripts to be executed by automating processes. All steps can be
-configured in a file called `slidy.yaml`.
+configured in a file called `slipy.yaml`.
 ```
-slidy run cleanup
+slipy run cleanup
 ```
 
-**slidy.yaml**:
+**slipy.yaml**:
 ```yaml 
-slidy: '1'
+slipy: '1'
 variables:
   customMessage: "Complete"    # Gets  ${Local.var.customMessage}
 
 scripts:
-  # Simple command (slidy run doctor)
+  # Simple command (slipy run doctor)
   doctor: flutter doctor
 
-  # Descritive command (slidy run clean)
+  # Descritive command (slipy run clean)
   clean:
     name: "Clean"
     description: 'minha descricao'
     run: flutter clean
 
-  # Steped command (slidy run cleanup)   
+  # Steped command (slipy run cleanup)   
   cleanup:
     description: "cleanup project"
     steps:
@@ -92,14 +94,14 @@ scripts:
 
 | Propetie    |      Type        |  Doc |
 |:----------  |:-----------------|:------|
-| slidy       | string         | Slidy pipeline version |
+| slipy       | string         | slipy pipeline version |
 | variables   | object         | Local variables. ex:<br>${Local.var.[VariableName]} |
 | scripts     | object         | Add runnable scripts by name |
 
 ## Script Propetie
 
 Add custom scripts. <br>
-The property name can be invoked using the `slidy run` command.
+The property name can be invoked using the `slipy run` command.
 
 **Simple example:**
 
@@ -109,7 +111,7 @@ scripts:
   runner: flutter pub run build_runner build --delete-conflicting-outputs
 ...
 ```
-Execute this script using ``slidy run runner`
+Execute this script using ``slipy run runner`
 
 **Complete example:**
 
@@ -174,45 +176,45 @@ scripts:
 | environment              | object           | Add environment variable.|
 | condition                | boolean      |If true, execute this script. |
 
-**NOTE**: The main file is called `slidy.yaml`, but if you want to call other files, use the **--schema** flag of the run command. <br>`slidy run command --schema other.yaml`
+**NOTE**: The main file is called `slipy.yaml`, but if you want to call other files, use the **--schema** flag of the run command. <br>`slipy run command --schema other.yaml`
 
 
 # Package manager
 Install, Uninstall and find package by command line.
 ```bash
 # install package
-slidy install bloc
+slipy install bloc
 
 # install package with version
-slidy install flutter_modular@4.0.1
+slipy install flutter_modular@4.0.1
 
 # install package in dev_dependencies
-slidy install mocktail --dev
+slipy install mocktail --dev
 
 # find package by query
-slidy find "Shared preferences"
+slipy find "Shared preferences"
 
 # show package versions
-slidy versions dio
+slipy versions dio
 ```
 
 # Template generator
-Slidy's goal is to help you structure your project in a standardized way. Organizing your app in **Modules** formed by pages, repositories, widgets, BloCs, and also create unit tests automatically. The Module gives you a easier way to inject dependencies and blocs, including automatic dispose. Also helps you installing the dependencies and packages, updating and removing them. The best is that you can do all of this running a single command.
+slipy's goal is to help you structure your project in a standardized way. Organizing your app in **Modules** formed by pages, repositories, widgets, BloCs, and also create unit tests automatically. The Module gives you a easier way to inject dependencies and blocs, including automatic dispose. Also helps you installing the dependencies and packages, updating and removing them. The best is that you can do all of this running a single command.
 
 We realized that the project pattern absence is affecting the productivity of most developers, so we're proposing a development pattern along with a tool that imitates NPM (NodeJS) functionality as well as template generation capabilities (similar to Scaffold).
 
 
 ## About the Proposed Pattern
 
-The structure that slidy offers you, it's similar to MVC, where a page keeps it's own **business logic classes(BloC)**.
+The structure that slipy offers you, it's similar to MVC, where a page keeps it's own **business logic classes(BloC)**.
 
-We recommend you to use [flutter_modular](https://pub.dev/packages/flutter_modular) when structuring with slidy. It offers you the **module structure**(extending the WidgetModule) and dependency/bloc injection, or you will probably get an error.
+We recommend you to use [flutter_modular](https://pub.dev/packages/flutter_modular) when structuring with slipy. It offers you the **module structure**(extending the WidgetModule) and dependency/bloc injection, or you will probably get an error.
 
-To understand **flutter_modular**, take a look at the [README](https://github.com/Flutterando/modular/blob/master/README.md).
+To understand **flutter_modular**, take a look at the [README](https://github.com/fernandormoraes/modular/blob/master/README.md).
 
 We also use the **Repository Pattern**, so the folder structure it's organized in **local modules** and a **global module**. The dependencies(repositories, BloCs, models, etc) can be accessed throughout the application.
 
-Sample folder structure generated by **slidy**:
+Sample folder structure generated by **slipy**:
 
 
 ## Commands
@@ -221,62 +223,62 @@ Sample folder structure generated by **slidy**:
 Create a basic structure for your project (confirm that you have no data in the "lib" folder).
 
 ```
-slidy start
+slipy start
 ```
 
 ## Generate
 
 Create a module, page, widget or repository according to the option.<br>
-Slidy generator supports mobx, bloc, cubit, rx_notifier and triple.
+slipy generator supports mobx, bloc, cubit, rx_notifier and triple.
 
 **Options:**
 
-Creates a new module with **slidy generate module**:
+Creates a new module with **slipy generate module**:
 
 ```
-slidy generate module manager/product
+slipy generate module manager/product
 ```
 
-Creates a new page with **slidy generate page**:
+Creates a new page with **slipy generate page**:
 
 ```
-slidy generate page manager/product/pages/add_product
+slipy generate page manager/product/pages/add_product
 ```
 
-Creates a new widget with **slidy generate widget**:
+Creates a new widget with **slipy generate widget**:
 
 ```
-slidy generate widget manager/product/widgets/product_detail
+slipy generate widget manager/product/widgets/product_detail
 ```
 
-Create a new repository with **slidy generate repository**
+Create a new repository with **slipy generate repository**
 
 ```
-slidy g r manager/product/repositories/product
+slipy g r manager/product/repositories/product
 ```
 
-Create a new rx notifier with **slidy generate rx**
+Create a new rx notifier with **slipy generate rx**
 
 ```
-slidy g rx manager/product/page/my_rx_notifier
+slipy g rx manager/product/page/my_rx_notifier
 ```
 
-Create a new triple with **slidy generate t**
+Create a new triple with **slipy generate t**
 
 ```
-slidy g t manager/product/page/my_triple
+slipy g t manager/product/page/my_triple
 ```
 
-Create a new cubit with **slidy generate c**
+Create a new cubit with **slipy generate c**
 
 ```
-slidy g c manager/product/page/my_cubit
+slipy g c manager/product/page/my_cubit
 ```
 
-Create a new mobx with **slidy generate mbx**
+Create a new mobx with **slipy generate mbx**
 
 ```
-slidy g mbx manager/product/page/my_store
+slipy g mbx manager/product/page/my_store
 ```
 
-For more details [Telegram Group Flutterando](https://t.me/flutterando)
+For more details [Telegram Group fernandormoraes](https://t.me/flutterando)

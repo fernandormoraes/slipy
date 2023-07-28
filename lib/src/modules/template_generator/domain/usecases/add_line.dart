@@ -1,15 +1,15 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../models/line_params.dart';
 
 abstract class AddLine {
-  Future<Either<SlidyError, SlidyProccess>> call(LineParams params);
+  Future<Either<SlipyError, SlipyProccess>> call(LineParams params);
 }
 
 class AddLineImpl extends AddLine {
   @override
-  Future<Either<SlidyError, SlidyProccess>> call(LineParams params) async {
+  Future<Either<SlipyError, SlipyProccess>> call(LineParams params) async {
     var lines = await params.file.readAsLines();
     lines = params.replaceLine == null
         ? lines
@@ -18,10 +18,10 @@ class AddLineImpl extends AddLine {
     await params.file.writeAsString(lines.join('\n'));
 
     if (params.inserts.isEmpty) {
-      return Right(SlidyProccess(
+      return Right(SlipyProccess(
           result: '${params.file.uri.pathSegments.last} added line'));
     }
-    return Right(SlidyProccess(
+    return Right(SlipyProccess(
         result:
             '${params.file.uri.pathSegments.last} added line ${params.inserts.first}'));
   }

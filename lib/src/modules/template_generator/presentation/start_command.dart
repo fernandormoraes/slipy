@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_console/dart_console.dart' show Console, ControlCharacter;
-import 'package:slidy/slidy.dart';
-import 'package:slidy/src/core/prints/prints.dart' as output;
-import 'package:slidy/src/modules/package_manager/domain/usecases/install.dart';
-import 'package:slidy/src/modules/template_generator/domain/usecases/create.dart';
+import 'package:slipy/slipy.dart';
+import 'package:slipy/src/core/prints/prints.dart' as output;
+import 'package:slipy/src/modules/package_manager/domain/usecases/install.dart';
+import 'package:slipy/src/modules/template_generator/domain/usecases/create.dart';
 
 import '../../../core/command/command_base.dart';
 import '../../package_manager/domain/params/package_name.dart';
@@ -34,7 +34,7 @@ class StartCommand extends CommandBase {
 
     while (isRunning) {
       print('\x1B[2J\x1B[0;0H');
-      output.title('Slidy CLI Interactive\n');
+      output.title('slipy CLI Interactive\n');
       output.warn(title);
       for (var i = 0; i < options.length; i++) {
         if (selected == i) {

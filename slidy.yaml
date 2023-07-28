@@ -1,20 +1,20 @@
-slidy: '1'
+slipy: '1'
 variables:
   customMessage: "Complete"    # Gets  ${Local.var.customMessage}
 
 scripts:
-  # Simple command (slidy run doctor)
+  # Simple command (slipy run doctor)
   doctor: flutter doctor
 
   build: dart run build_runner build
 
-  # Descritive command (slidy run clean)
+  # Descritive command (slipy run clean)
   clean:
     name: "Clean"
     description: 'minha descricao'
     run: flutter clean
 
-  # Steped command (slidy run reload)   
+  # Steped command (slipy run reload)   
   cleanup:
     description: "cleanup project"
     steps:

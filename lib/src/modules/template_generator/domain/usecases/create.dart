@@ -1,22 +1,23 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:recase/recase.dart';
-import 'package:slidy/src/core/services/yaml_service_impl.dart';
-import 'package:slidy/src/modules/template_generator/domain/errors/errors.dart';
+import 'package:slipy/src/core/services/yaml_service_impl.dart';
+import 'package:slipy/src/modules/template_generator/domain/errors/errors.dart';
 import 'package:yaml/yaml.dart';
 
-import '../../../../core/entities/slidy_process.dart';
+import '../../../../core/entities/slipy_process.dart';
 import '../../../../core/errors/errors.dart';
 import '../models/template_info.dart';
 
 abstract class Create {
-  Future<Either<SlidyError, SlidyProccess>> call(TemplateInfo params);
+  Future<Either<SlipyError, SlipyProccess>> call(TemplateInfo params);
 }
 
 class CreateImpl implements Create {
   @override
-  Future<Either<SlidyError, SlidyProccess>> call(TemplateInfo params) async {
-    final fileName =
-        params.destiny.uri.pathSegments.last.replaceFirst('.dart', '');
+  Future<Either<SlipyError, SlipyProccess>> call(TemplateInfo params) async {
+    final fileName = params.destiny.uri.pathSegments.last
+        .replaceFirst('.dart', '')
+        .snakeCase;
     if (await params.destiny.exists()) {
       return Left(TemplateCreatorError('File $fileName exists'));
     }
@@ -34,7 +35,7 @@ class CreateImpl implements Create {
           .map<String>((e) => _processLine(e, params.args, fileName))
           .toList();
       await params.destiny.writeAsString(list.join('\n'));
-      return Right(SlidyProccess(result: '$fileName created'));
+      return Right(SlipyProccess(result: '$fileName created'));
     } else {
       return Left(TemplateCreatorError('Incorrect YAML'));
     }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -44,7 +44,7 @@ class GenerateMobxSubCommand extends CommandBase {
         await TemplateFile.getInstance(argResults?.rest.single ?? '', 'store');
 
     if (!await templateFile.checkDependencyIsExist('mobx')) {
-      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+      var command = CommandRunner('slipy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'flutter_mobx', 'mobx']);
       await command.run(['install', 'mobx_codegen', 'build_runner', '--dev']);
     }
@@ -62,7 +62,7 @@ class GenerateMobxSubCommand extends CommandBase {
       }
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}Store()',
+          '${templateFile.fileNameWithUpperCase}Store()',
           templateFile.import,
           templateFile.file.parent);
     }
@@ -73,9 +73,10 @@ class GenerateMobxSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'mobx_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Store',
+            '${templateFile.fileNameWithUpperCase}Store',
             templateFile.import
           ]));
+
       execute(result);
     }
   }

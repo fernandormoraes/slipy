@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../../core/command/command_base.dart';
 import '../../../domain/models/template_info.dart';
@@ -43,7 +43,7 @@ class GenerateDataSourceSubCommand extends CommandBase {
         await TemplateFile.getInstance(argResults?.rest.single ?? '', null);
 
     if (!await templateFile.checkDependencyIsExist('dio')) {
-      var command = CommandRunner('slidy', 'CLI')..addCommand(InstallCommand());
+      var command = CommandRunner('slipy', 'CLI')..addCommand(InstallCommand());
       await command.run(['install', 'dio@4.0.0-beta6']);
     }
 
@@ -57,7 +57,7 @@ class GenerateDataSourceSubCommand extends CommandBase {
         yaml: dataSource,
         destiny: File('$body/../infra/datasource/$last'),
         key: 'interface_data_source',
-        args: ['${templateFile.fileNameWithUppeCase}Event'],
+        args: ['${templateFile.fileNameWithUpperCase}Event'],
       ),
     );
 
@@ -72,7 +72,7 @@ class GenerateDataSourceSubCommand extends CommandBase {
         destiny: File('$body/../external/datasource/$last'),
         key: 'data_source',
         args: [
-          '${templateFile.fileNameWithUppeCase}Event',
+          '${templateFile.fileNameWithUpperCase}Event',
           importDataSourceInterface
         ],
       ),
@@ -83,14 +83,14 @@ class GenerateDataSourceSubCommand extends CommandBase {
     if (result.isRight()) {
       await utils.injectParentModule(
           argResults!['bind'],
-          '${templateFile.fileNameWithUppeCase}DataSourceImpl(i())',
+          '${templateFile.fileNameWithUpperCase}DataSourceImpl(i())',
           importDataSource,
           templateFile.file.parent.parent);
     }
 
     if (!argResults!['notest']) {
       if (!await templateFile.checkDependencyIsExist('mockito')) {
-        var command = CommandRunner('slidy', 'CLI')
+        var command = CommandRunner('slipy', 'CLI')
           ..addCommand(InstallCommand());
         await command.run(['install', 'mockito@5.0.0']);
       }
@@ -101,9 +101,9 @@ class GenerateDataSourceSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'data_source_test',
           args: [
-            'I${templateFile.fileNameWithUppeCase}DataSource',
+            'I${templateFile.fileNameWithUpperCase}DataSource',
             templateFile.import,
-            '${templateFile.fileNameWithUppeCase}DataSourceImpl'
+            '${templateFile.fileNameWithUpperCase}DataSourceImpl'
           ],
         ),
       );

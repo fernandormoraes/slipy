@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:slidy/src/modules/package_manager/domain/repositories/package_repository.dart';
+import 'package:slipy/src/modules/package_manager/domain/repositories/package_repository.dart';
 
-import '../../../../core/entities/slidy_process.dart';
+import '../../../../core/entities/slipy_process.dart';
 import '../../../../core/errors/errors.dart';
 import '../params/package_name.dart';
 
 abstract class Versions {
-  TaskEither<SlidyError, SlidyProccess> call(PackageName package);
+  TaskEither<SlipyError, SlipyProccess> call(PackageName package);
 }
 
 class VersionsImpl implements Versions {
@@ -17,13 +17,13 @@ class VersionsImpl implements Versions {
   VersionsImpl(this.repository);
 
   @override
-  TaskEither<SlidyError, SlidyProccess> call(PackageName package) {
+  TaskEither<SlipyError, SlipyProccess> call(PackageName package) {
     return repository
         .getVersions(package.name) //
         .map(finishProcess);
   }
 
-  SlidyProccess finishProcess(List<String> versions) {
+  SlipyProccess finishProcess(List<String> versions) {
     final maxItem = min(versions.length, 10);
     final newList = versions.reversed.take(maxItem);
 
@@ -31,6 +31,6 @@ class VersionsImpl implements Versions {
       print(element);
     }
 
-    return SlidyProccess(result: '');
+    return SlipyProccess(result: '');
   }
 }

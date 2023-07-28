@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -35,7 +35,7 @@ class GenerateWidgetSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'page_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Widget',
+            '${templateFile.fileNameWithUpperCase}Widget',
             templateFile.import
           ]));
       execute(result);

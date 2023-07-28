@@ -1,6 +1,6 @@
 import 'package:ansicolor/ansicolor.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:slidy/slidy.dart';
+import 'package:slipy/slipy.dart';
 
 AnsiPen red = AnsiPen()..red(bold: true);
 AnsiPen green = AnsiPen()..green(bold: true);
@@ -13,7 +13,7 @@ void warn(msg) => print(yellow('WARN: $msg'));
 void error(msg) => print(red('ERROR: $msg'));
 void msg(msg) => print(white(msg));
 
-void execute(Either<SlidyError, SlidyProccess> either) {
+void execute(Either<SlipyError, SlipyProccess> either) {
   either.fold((left) {
     error(left.message);
   }, (right) {

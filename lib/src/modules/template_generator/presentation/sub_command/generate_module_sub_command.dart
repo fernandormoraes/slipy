@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:slidy/slidy.dart';
-import 'package:slidy/src/core/services/yaml_service.dart';
+import 'package:recase/recase.dart';
+import 'package:slipy/slipy.dart';
+import 'package:slipy/src/core/services/yaml_service.dart';
 
 import '../../../../core/command/command_base.dart';
 import '../../domain/models/template_info.dart';
@@ -37,7 +38,8 @@ class GenerateModuleSubCommand extends CommandBase {
     var templateFile =
         await TemplateFile.getInstance(argResults?.rest.single ?? '', 'module');
     templateFile = await TemplateFile.getInstance(
-        '${argResults!.rest.first}/${templateFile.fileName}', 'module');
+        '${argResults!.rest.first}/${templateFile.fileName.snakeCase}',
+        'module');
 
     var result = await Modular.get<Create>().call(TemplateInfo(
         key: 'module', destiny: templateFile.file, yaml: generateFile));
@@ -49,7 +51,7 @@ class GenerateModuleSubCommand extends CommandBase {
           destiny: templateFile.fileTest,
           key: 'module_test',
           args: [
-            '${templateFile.fileNameWithUppeCase}Module',
+            '${templateFile.fileNameWithUpperCase}Module',
             templateFile.import
           ]));
       execute(result);
@@ -57,7 +59,7 @@ class GenerateModuleSubCommand extends CommandBase {
 
     if (argResults!['complete'] != true) return;
 
-    var command = CommandRunner('slidy', 'CLI')..addCommand(GenerateCommand());
+    var command = CommandRunner('slipy', 'CLI')..addCommand(GenerateCommand());
     final yamlService = Modular.get<YamlService>();
     final node = yamlService.getValue(['dependencies']);
     final smList = [
@@ -79,11 +81,11 @@ class GenerateModuleSubCommand extends CommandBase {
       '--page'
     ]);
     templateFile = await TemplateFile.getInstance(
-        '${argResults!.rest.first}/${templateFile.fileName}', 'page');
+        '${argResults!.rest.first}/${templateFile.fileName.snakeCase}', 'page');
 
     await utils.injectParentModuleRouting(
         '/',
-        '${templateFile.fileNameWithUppeCase}Page()',
+        '${templateFile.fileNameWithUpperCase}Page()',
         templateFile.import,
         templateFile.file.parent);
   }
